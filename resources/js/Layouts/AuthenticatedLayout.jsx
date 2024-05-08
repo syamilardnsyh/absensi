@@ -21,8 +21,8 @@ export default function Authenticated({ user, header, children }) {
         },
         {
             name: "Absensi",
-            href: route("absensi.index"),
-            current: route().current("absensi.index"),
+            href: route("dashboard"),
+            current: route().current("dashboard"),
         },
     ]
 
@@ -50,15 +50,7 @@ export default function Authenticated({ user, header, children }) {
                                         </NavLink>
                                     );
                                })}
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Users
-                                </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Absensi
-                                </NavLink>
+                                
                             </div>
                         </div>
 
@@ -127,16 +119,18 @@ export default function Authenticated({ user, header, children }) {
 
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Users
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Absensi
-                        </ResponsiveNavLink>
-                    </div>
+                        {menu.map((item, index) => {
+                           return (
+                           <ResponsiveNavLink 
+                           key={index}
+                           href={item.href} 
+                           active={item.current}
+                           >
+                            {item.name}
+                           </ResponsiveNavLink>
+                           ); 
+                        })}
+                        </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
                         <div className="px-4">
