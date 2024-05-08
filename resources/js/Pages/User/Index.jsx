@@ -1,7 +1,9 @@
+import Pagination from '@/Components/Pagination';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 
 export default function UserIndex({ auth, users }) {
+    console.log(users);
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -33,16 +35,16 @@ export default function UserIndex({ auth, users }) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users.map((user) => (
-                                        <tr key={user.id} className="border-b">
+                                    {users.data.map(({id, name, email}) => (
+                                        <tr key={id} className="border-b">
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                    {user.id}
+                                                    {id}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                    {user.name}
+                                                    {name}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                    {user.email}
+                                                    {email}
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                     &nbsp;
@@ -52,6 +54,7 @@ export default function UserIndex({ auth, users }) {
                                     )}
                                 </tbody>
                             </table>
+                            <Pagination links={users.links} />
                         </div>
                     </div>
                 </div>
