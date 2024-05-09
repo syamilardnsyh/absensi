@@ -21,7 +21,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth',])->group(function () {
     Route::get('/users', [userController::class, 'index'])->name('users');
-    Route::post('/users', [userController::class, 'index'])->name('users.create');
+    Route::get('/users/create', [userController::class, 'create'])->name('users.create');
+    Route::post('/users/store', [userController::class, 'store'])->name('users.store');
 });
 
 Route::middleware('auth')->group(function () {
