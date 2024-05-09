@@ -7,6 +7,7 @@ import TextInput from '@/Components/TextInput';
 import { Link, useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import Selectbox from "@/Components/Selectbox";
+import roles from "@/data/roles.json";
 
 export default function UserCreate({ auth }) {
     const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
@@ -78,10 +79,7 @@ export default function UserCreate({ auth }) {
                                         <InputLabel htmlFor="role" value="Role" />
                                         <Selectbox
                                             onChange={(e) => setData("role", e.target.value)}
-                                            options={[
-                                                { value: "admin", label: "Admin" },
-                                                { value: "user", label: "User" },
-                                            ]}
+                                            options={roles}
                                         />
                                     </div>
                                     <div>
