@@ -23,6 +23,8 @@ Route::middleware(['auth',])->group(function () {
     Route::get('/users', [userController::class, 'index'])->name('users');
     Route::get('/users/create', [userController::class, 'create'])->name('users.create');
     Route::post('/users/store', [userController::class, 'store'])->name('users.store');
+    Route::get('/users/edit/{user}', [userController::class, 'edit'])->name('users.edit');
+    Route::patch('/users/update/{user}', [userController::class, 'update'])->name('users.update');
 });
 
 Route::middleware('auth')->group(function () {
