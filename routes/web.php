@@ -19,7 +19,7 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth',])->name('dashboard');
 
-Route::middleware(['auth',])->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/users', [userController::class, 'index'])->name('users');
     Route::get('/users/create', [userController::class, 'create'])->name('users.create');
     Route::post('/users/store', [userController::class, 'store'])->name('users.store');
