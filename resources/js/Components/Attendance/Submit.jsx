@@ -10,15 +10,45 @@ import { useEffect, useState } from "react";
 export default function SubmitAttendance() {
     const [transitioning, setTransitioning] = useState(false);
 
-    const { data, setData, post, errors, processing } = useForm({
+    const { data, setData, post, transform, errors, processing } = useForm({
         status: "attend",
         description: "",
+        latitude: "",
+        longitude: "",
+        prepareData: {},
     });
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route("attendances.submit"), {
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                console.log("Latitude Is :", position.coords.latitude);
+                console.log("Longitude Is :", position.coords.longitude);
+
+                let objLocation = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                }
+
+                setData("prepareData", objLocation);
+            },
+            function (eror) {
+                alert("Lokasimu tidak tersedia");
+            }
+        );
+    };
+
+    useEffect(() => {
+        if (data.prepareData.hasOwnProperty("latitude") && data.prepareData.hasOwnProperty("longitude")) {
+
+            transform((data) => ({
+                ...data.prepareData, // latitude and longitude
+                status: data.status,
+                description: data.description,
+            }));
+
+            post(route("attendances.submit"), {
             preserveScroll: true,
             onSuccess: () => {
                 alert("Absen Berhasil");
@@ -27,7 +57,8 @@ export default function SubmitAttendance() {
                 console.log(errors);
             },
         });
-    };
+    }
+    }, [data.prepareData]);
 
     useEffect(() => {
         if (data.status === "attend") {
