@@ -7,8 +7,9 @@ import { Transition } from "@headlessui/react";
 import Selectbox from "@/Components/Selectbox";
 import { useEffect, useState } from "react";
 
-export default function SubmitAttendance({ auth }) {
+export default function SubmitAttendance() {
     const [transitioning, setTransitioning] = useState(false);
+
     const { data, setData, post, errors, processing } = useForm({
         status: "attend",
         description: "",
@@ -20,7 +21,7 @@ export default function SubmitAttendance({ auth }) {
         post(route("attendances.submit"), {
             preserveScroll: true,
             onSuccess: () => {
-                alert("Absensi Berhasil");
+                alert("Absen Berhasil");
             },
             onError: () => {
                 console.log(errors);
